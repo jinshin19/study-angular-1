@@ -2,6 +2,8 @@
 
 ---
 
+![[![Simple CI / CD](https://github.com/jinshin19/study-angular-1/actions/workflows/simple.yml/badge.svg)](https://github.com/jinshin19/study-angular-1/actions/workflows/simple.yml)]
+
 #### Learned part 1 | march 7, 2026 : 12am
 
 - interpolations
