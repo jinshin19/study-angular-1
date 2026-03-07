@@ -1,0 +1,52 @@
+name: Simple CI / CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  checkout:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Clone the repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: [24]
+
+      - name: Upload the repository
+        uses: actions/upload-artifact@v4
+        with:
+          name: angular-1
+          path: .
+
+      - run: echo "Checkout job completed..."
+
+  build:
+    needs: checkout
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Download repository
+        uses: actions/download-artifact@v4
+        with:
+          name: angular-1
+          path: .
+
+      - name: Install dependencies
+        run: npm Install
+
+      - name: Run build
+        run: npm run build
+
+      - run: echo Build completed...
+
+  final:
+    needs: build
+    runs-on: [ubuntu-latest]
+
+    steps:
+      run: echo completed...
