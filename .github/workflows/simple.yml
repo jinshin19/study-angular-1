@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: [24]
+          node-version: 24
 
       - name: Upload the repository
         uses: actions/upload-artifact@v4
@@ -49,4 +49,4 @@ jobs:
     runs-on: [ubuntu-latest]
 
     steps:
-      run: echo completed...
+      - run: echo completed...
