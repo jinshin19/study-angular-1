@@ -1,0 +1,5 @@
+<header class="flex flex-wrap justify-center items-center gap-3 border-b py-5">
+  @for (route of routes; track route) {
+    <a routerLink="{{ route.path }}">{{ route.data?.['name'] }}</a>
+  }
+</header>

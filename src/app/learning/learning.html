@@ -1,0 +1,372 @@
+<main class="bg-black text-white p-5">
+  <a routerLink="sample">Go to sample page</a>
+
+  <!-- Interpolation -->
+  <p>{{ useInterpolation }}</p>
+  <p>{{ number + number }}</p>
+  <p>{{ 10 + 15 }}</p>
+  <p>{{ 'upppercase'.toUpperCase() }}</p>
+  <p>{{ 10 === 10 }}</p>
+  <!-- Limitation using interpolation -->
+  <!-- <p>{{num1 = 10}}</p> You cannot assign value to a property using interpolation -->
+
+  <!-- custom selector removing the 'app' instead of 'app-sample' -->
+  <sample></sample>
+  <!-- Standalone custom component without html and css file -->
+  <custom-standalone-component></custom-standalone-component>
+
+  <!-- Functions -->
+  <button
+    (click)="clickMe()"
+    class="my-2 px-2 py-1 border cursor-pointer hover:bg-white hover:text-black rounded-md"
+  >
+    Click me!
+  </button>
+
+  <!-- Create simple counter with increament and decrement -->
+  <div class="border w-fit py-5 my-2">
+    <p class="text-center py-2">Simple counter app</p>
+    <div class="w-full flex justify-center items-center py-2">
+      <p class="rounded-full px-2 border w-fit">{{ counter }}</p>
+    </div>
+    <div class="flex justify-center items-center p-2 gap-2">
+      <button
+        class="border px-3 py-2 rounded-md active:scale-[.98] cursor-pointer"
+        (click)="decrement()"
+      >
+        Decrease
+      </button>
+      <button
+        class="border px-3 py-2 rounded-md active:scale-[.98] cursor-pointer"
+        (click)="resetCounter()"
+      >
+        Reset
+      </button>
+      <button
+        class="border px-3 py-2 rounded-md active:scale-[.98] cursor-pointer"
+        (click)="increment()"
+      >
+        Increment
+      </button>
+    </div>
+  </div>
+
+  <!-- Inputs, get values -->
+  <div class="border p-5 rounded-md w-fit flex items-center justify-center flex-col">
+    <p>Input : Typing value</p>
+    <!-- Typed value goes here -->
+    <p class="py-1">{{ inputValue }}</p>
+    <input type="text" class="border px-2 py-1 rounded-md my-2" (input)="onChange($event)" />
+    <br />
+
+    <p>Input : Get the value from input</p>
+    <!-- Value goes here -->
+    <p class="py-1">{{ getInputValue }}</p>
+    <input type="text" class="border px-2 py-1 rounded-md my-2" #getInputValueTemplate />
+    <button class="px-2 py-1 border rounded-md" (click)="setValue(getInputValueTemplate.value)">
+      Show the value
+    </button>
+  </div>
+
+  <!-- Exercise : Simple calculator -->
+  <div class="border p-5 w-fit my-10 rounded-lg">
+    <p class="text-center mb-5">Simple calculator</p>
+    <div class="border p-2 rounded-md">
+      <div class="my-3">
+        <div class="flex items-center justify-center gap-1 border-b h-6">
+          <p>{{ calValue }}</p>
+        </div>
+        <p class="text-center h-6 mb-5">
+          {{ calAnswer === 0 ? '' : calAnswer }}
+        </p>
+      </div>
+      <div class="mt-2">
+        <!-- Operators -->
+        <div class="flex gap-2">
+          @for (calOperator of calOperators; track calOperator) {
+            <button
+              class="border rounded-md w-11.5 h-11.5 cursor-pointer active:scale-[.95] hover:bg-[#555555]"
+              #number
+              value="{{ calOperator }}"
+              (click)="calHandleInput(number.value)"
+            >
+              {{ calOperator }}
+            </button>
+          }
+        </div>
+        <!-- Numbers -->
+        <div class="flex flex-wrap gap-2 w-55 mt-2">
+          @for (calNum of calNumbers; track calNum) {
+            <button
+              class="border rounded-md w-11.5 h-11.5 cursor-pointer active:scale-[.95] hover:bg-[#555555]"
+              #number
+              value="{{ calNum }}"
+              (click)="calHandleInput(number.value)"
+            >
+              {{ calNum }}
+            </button>
+          }
+          <button
+            class="border rounded-md w-11.5 h-11.5 cursor-pointer active:scale-[.95] hover:bg-[#555555]"
+            (click)="calCalculate()"
+          >
+            =
+          </button>
+          <div class="flex gap-2">
+            <button
+              class="border rounded-md w-11.5 h-11.5 cursor-pointer active:scale-[.95] hover:bg-[#555555]"
+              (click)="calClear()"
+            >
+              C
+            </button>
+            <button
+              class="border rounded-md w-11.5 h-11.5 cursor-pointer active:scale-[.95] hover:bg-[#555555]"
+              (click)="calClearAll()"
+            >
+              CA
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Condition Directives -->
+  <!-- If  else -->
+  <div class="my-10 border p-5 w-65 text-center">
+    <p class="my-4">This is the conditions part</p>
+    <div class="border-t border-b my-2 text-center py-2">
+      @if (isLoading) {
+        <p>
+          {{ 'Loading....' }}
+        </p>
+      } @else {
+        <p>
+          {{ 'Not loading....' }}
+        </p>
+      }
+    </div>
+
+    <button
+      class="border rounded-md cursor-pointer active:scale-[.95] hover:bg-[#555555] px-3 py-2 mt-3"
+      (click)="toggleLoading()"
+      --
+    >
+      Set the loading to {{ !isLoading }}
+    </button>
+  </div>
+
+  <!-- switch -->
+  <div class="my-10 border p-5 w-65 text-center">
+    <p class="my-4">Switch case</p>
+    <div class="border-t border-b my-2 text-center py-2">
+      @switch (color) {
+        @case ('red') {
+          <p class="bg-{{ color }}-500 w-[90%] h-6 mx-auto"></p>
+        }
+        @case ('white') {
+          <p class="bg-{{ color }} w-[90%] h-6 mx-auto"></p>
+        }
+        @case ('green') {
+          <p class="bg-{{ color }}-500 w-[90%] h-6 mx-auto"></p>
+        }
+        @case ('violet') {
+          <p class="bg-{{ color }}-500 w-[90%] h-6 mx-auto"></p>
+        }
+        @default {
+          <p class="bg-{{ color }}-500 w-[90%] h-6 mx-auto"></p>
+        }
+      }
+    </div>
+
+    <select #selected name="color" id="color" (change)="onSelect(selected.value)">
+      <option class="bg-black" value="red">Red</option>
+      <option class="bg-black" value="white">White</option>
+      <option class="bg-black" value="green">green</option>
+      <option class="bg-black" value="violet">violet</option>
+    </select>
+  </div>
+
+  <!-- Loops -->
+  <div class="border w-fit p-5">
+    <p class="mb-5 text-center">For loops</p>
+
+    <p class="mb-1">Sample 1: track the <b>person</b> object</p>
+    <table class="loop-style border-collapse mx-auto">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Age</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (person of persons; track person) {
+          <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.age }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <style>
+      .loop-style {
+        text-align: center;
+      }
+      .loop-style th,
+      .loop-style td {
+        border: 1px solid;
+      }
+      .loop-style th,
+      .loop-style td {
+        padding: 10px 20px;
+      }
+    </style>
+  </div>
+
+  <!-- Signal -->
+  <div class="border w-fit p-5 my-10">
+    <p class="mb-5 text-center">For signals</p>
+
+    <div class="w-65 flex gap-2 items-center">
+      <p>String:</p>
+      <p>
+        <b>
+          {{ signalValue() }}
+        </b>
+      </p>
+    </div>
+
+    <div class="flex items-center justify-center gap-2 mt-2">
+      <input
+        #signalValueTemplate
+        type="text"
+        class="border px-2 py-2 rounded-md"
+        (input)="handleInputSignalValue(signalValueTemplate.value)"
+      />
+      <button
+        class="border rounded-md cursor-pointer active:scale-[.95] hover:bg-[#555555] px-3 py-2 flex-1"
+        (click)="updateSignalValue(signalValueTemplate.value)"
+        --
+      >
+        Update
+      </button>
+    </div>
+    <!--  -->
+    <div class="w-65 flex gap-2 items-center mt-5">
+      <p>String:</p>
+      <p>
+        <b>
+          {{ signalTypingValue() }}
+        </b>
+      </p>
+    </div>
+
+    <div class="flex justify-self-start items-center justify-center gap-2 mt-2">
+      <input
+        #signalValueTypingTemplate
+        type="text"
+        class="border px-2 py-2 rounded-md"
+        (input)="handleTypingSignalValue(signalValueTypingTemplate.value)"
+      />
+    </div>
+  </div>
+
+  <!-- Continuation Loops Contextual Variables -->
+  <div class="border w-fit p-5">
+    <p class="mb-5 text-center">For loops</p>
+
+    <p class="mb-1">Sample 1: track the <b>person</b> object</p>
+    <table class="loop-style border-collapse mx-auto">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Age</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (person of persons; track person; let first = $first; let last = $last) {
+          <tr class="{{ first ? 'bg-red-500' : last ? 'bg-blue-500' : 'bg-black' }}">
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.age }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Two way binding -->
+  <div class="border w-fit p-5 my-10">
+    <p class="mb-5 text-center">Two way binding</p>
+
+    <p class="flex items-center px-3 rounded-lg mb-5 h-10">{{ bindName }}</p>
+
+    <input type="text" class="border px-3 py-2 rounded-lg" [(ngModel)]="bindName" />
+  </div>
+
+  <!-- PRACTICE CREATE TODO LIST -->
+
+  <div class="p-5 border rounded-lg w-fit max-w-82.5 wrap-anywhere">
+    <p class="mb-5 text-center">Exercise : Todo List</p>
+    <!-- Todos -->
+    <div class="todos flex flex-col gap-2 h-70 mb-5 max-[280px] overflow-y-auto">
+      @for (todo of todos(); track todo) {
+        <div class="flex gap-2 items-center border p-3 rounded-lg" [style.background]="todoColor">
+          <div class="flex-1">
+            <p>{{ todo.title }}</p>
+            <p>{{ todo.description }}</p>
+          </div>
+          <div>
+            <button
+              class="rounded-full border flex justify-center items-center p-2 w-6 h-6 text-[14px] cursor-pointer active:scale-[.95]"
+              (click)="removeTodo($index)"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+    <!-- Actions -->
+    <div class="flex items-center gap-2 flex-1">
+      <div class="flex flex-col gap-2 flex-1">
+        <input
+          [(ngModel)]="todoTitle"
+          type="text"
+          class="border px-3 py-2 rounded-lg"
+          (keypress)="keyPress($event)"
+        />
+        <textarea
+          class="border px-3 py-2 rounded-lg"
+          [(ngModel)]="todoDescription"
+          (keypress)="keyPress($event)"
+        ></textarea>
+      </div>
+      <div class="h-[stretch]">
+        <button
+          class="border px-3 py-2 rounded-lg cursor-pointer active:scale-[.95]"
+          (click)="addTodo()"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+    <style>
+      .todos {
+        padding: 0 10px;
+      }
+      .todos::-webkit-scrollbar {
+        width: 2px;
+        color: red;
+        background: rgb(53, 53, 53);
+      }
+      .todos::-webkit-scrollbar-thumb {
+        background: rgb(161, 161, 161);
+        border-radius: 100%;
+      }
+    </style>
+  </div>
+</main>

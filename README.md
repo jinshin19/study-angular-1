@@ -28,3 +28,16 @@
 - **Signal Fetch** e.g inside the construct of component. **fetch** is a reactive that catches any used signal changes to do something, e.g `API CALL`
 
 ---
+
+#### Learned part 3 | march 8, 2026 : 1pm - 5pm
+
+- **Skipped** e.g `computed()` signal and `effect()` inside the `constructor`. computed signal is **readonly**.
+- **For Loop Contextual Variables** e.g `$first`, `$last`, `$even`, `$odd` etc. adding `let` after the `track` e.g `for(person of persons; track person; let first = $first; let last = $last)` to add shortcut removing the `$` sign;
+- **Two way binding** instead of using the old way of getting the input value e.g **using change events** or **value templating**. use `NGMODEL` instead and import the `FormModule`.
+- Apply one basic `dynamic styling`, basically didn't go in depth to this I skipped.
+- **Exercise** - Created a todo list as part of my exercises to put into action what I’ve learned so far.
+- **Skipped** e.g `ngFor`, `ngIf` etc. Reason is that I use angular 21. if go lower version still fine it's not that hard to follow.
+- **Basic Routing** using `routerLink`, `routerOutlet`. `app.html` uses the `a routerLink` and below is the `router-outlet`
+- Added custom components e.g `header` & `footer`. Also added custom `routes` constant to reused for looping e.g `navigations`. Set the `Learning` component as the default page
+
+---
